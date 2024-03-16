@@ -1,4 +1,4 @@
-import { Ball } from '../utils/types';
+import { Ball } from '../types';
 
 export const balls: Ball[] = [
   { x: 100, y: 50, radius: 20, color: 'red', vx: 0, vy: 0 },

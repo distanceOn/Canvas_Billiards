@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import BilliardField from '../components/Main/Main';
+import BilliardField from '../components/Main/BilliardField';
 
 const AppRoutes = () => {
   return (

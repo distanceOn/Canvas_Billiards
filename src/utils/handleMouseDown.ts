@@ -1,4 +1,4 @@
-import { Ball } from '../../utils/types';
+import { Ball } from './types';
 
 export const handleMouseDown = (
   canvas: HTMLCanvasElement,
