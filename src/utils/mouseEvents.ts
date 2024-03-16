@@ -27,3 +27,23 @@ export const handleMouseDown = (
     }
   });
 };
+
+export const handleMouseMove = (
+  canvas: HTMLCanvasElement,
+  balls: Ball[],
+  event: MouseEvent
+) => {
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+  let isCursorOverBall = false;
+
+  balls.forEach(ball => {
+    const distance = Math.sqrt((ball.x - mouseX) ** 2 + (ball.y - mouseY) ** 2);
+    if (distance < ball.radius) {
+      isCursorOverBall = true;
+    }
+  });
+
+  canvas.style.cursor = isCursorOverBall ? 'pointer' : 'default';
+};

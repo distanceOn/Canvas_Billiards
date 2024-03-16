@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 
 import S from './BilliardField.module.scss';
 import { balls } from '../../utils/balls/balls';
-import { handleMouseDown } from '../../utils/handleMouseDown';
+import { handleMouseDown, handleMouseMove } from '../../utils/mouseEvents';
 import { createEmptyField } from '../../utils/createEmptyField';
 import { renderBalls } from '../../utils/balls/renderBalls';
 import { animation } from '../../utils/animation';
@@ -20,6 +20,8 @@ const BilliardField: React.FC = () => {
 
       const handleMouseDownReady = handleMouseDown.bind(null, canvas, balls);
       canvas.addEventListener('mousedown', handleMouseDownReady);
+      const handleMouseMoveReady = handleMouseMove.bind(null, canvas, balls);
+      canvas.addEventListener('mousemove', handleMouseMoveReady);
 
       // Запуск анимации
       const animate = () => {
@@ -29,8 +31,10 @@ const BilliardField: React.FC = () => {
       animate();
 
       // Очистка: удаление обработчика событий
-      return () =>
+      return () => {
+        canvas.removeEventListener('mousemove', handleMouseMoveReady);
         canvas.removeEventListener('mousedown', handleMouseDownReady);
+      };
     }
   }, []);
 
