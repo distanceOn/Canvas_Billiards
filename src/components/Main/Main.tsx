@@ -2,32 +2,37 @@ import React, { useRef, useEffect } from 'react';
 
 import S from './Main.module.scss';
 import { balls } from '../../contants/balls';
+import { handleMouseDown } from './handleMouseDown';
+import { createEmptyField } from './createEmptyField';
+import { renderBalls } from './renderBalls';
+import { animation } from './animate';
 
 const BilliardField: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    const context = canvas?.getContext('2d');
 
-    if (context) {
-      const { width, height } = canvas;
+    if (canvas && context) {
+      createEmptyField(canvas, context);
+      renderBalls(context, balls);
 
-      // Отрисовка поля
-      context.fillStyle = 'black';
-      context.fillRect(0, 0, width, height);
+      const handleMouseDownReady = handleMouseDown.bind(null, canvas, balls);
+      canvas.addEventListener('mousedown', handleMouseDownReady);
 
-      // Отрисовка шаров
-      balls.forEach(ball => {
-        context.fillStyle = ball.color;
-        context.beginPath();
-        context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-        context.fill();
-      });
+      // Запуск анимации
+      const animate = () => {
+        animation(canvas, context, balls);
+        requestAnimationFrame(animate); // Повторение анимации
+      };
+      animate();
+
+      // Очистка: удаление обработчика событий
+      return () =>
+        canvas.removeEventListener('mousedown', handleMouseDownReady);
     }
-  }, [canvasRef]);
+  }, []);
 
   return (
     <div className={S.container}>
