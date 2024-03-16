@@ -12,7 +12,6 @@ export const handleMouseDown = (
   balls.forEach(ball => {
     const distance = Math.sqrt((ball.x - mouseX) ** 2 + (ball.y - mouseY) ** 2);
     if (distance < ball.radius) {
-      // Эмулируем "толчок" шара
       const forceDirection = { x: mouseX - ball.x, y: mouseY - ball.y };
       const forceMagnitude = Math.sqrt(
         forceDirection.x ** 2 + forceDirection.y ** 2
@@ -22,7 +21,7 @@ export const handleMouseDown = (
         y: forceDirection.y / forceMagnitude,
       };
 
-      ball.vx = -forceNormalization.x * 5; // Умножаем на желаемую скорость
+      ball.vx = -forceNormalization.x * 5;
       ball.vy = -forceNormalization.y * 5;
     }
   });

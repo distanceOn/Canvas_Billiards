@@ -23,14 +23,12 @@ const BilliardField: React.FC = () => {
       const handleMouseMoveReady = handleMouseMove.bind(null, canvas, balls);
       canvas.addEventListener('mousemove', handleMouseMoveReady);
 
-      // Запуск анимации
       const animate = () => {
         animation({ canvas, context, balls });
-        requestAnimationFrame(animate); // Повторение анимации
+        requestAnimationFrame(animate);
       };
       animate();
 
-      // Очистка: удаление обработчика событий
       return () => {
         canvas.removeEventListener('mousemove', handleMouseMoveReady);
         canvas.removeEventListener('mousedown', handleMouseDownReady);
