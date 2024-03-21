@@ -1,9 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
+import BilliardField from '../components/Main/BilliardField';
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path='/' element={<div>Home</div>} />
+      <Route path='/' element={<BilliardField />} />
       <Route path='*' element={<div>404</div>} />
     </Routes>
   );
